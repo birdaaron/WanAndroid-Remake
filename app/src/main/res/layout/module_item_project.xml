@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="project"
+            type="com.birdaaron.wanandroid.model.bean.ProjectItem" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/ll_item_project_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTag"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="15dp"
+                android:textColor="#2E64FE"
+                android:padding="3dp"
+                android:background="@drawable/shape_border_textview_tag"
+                android:layout_marginRight="5dp"
+                android:text="@{project.chapterName}" />
+
+            <TextView
+                android:id="@+id/tvAuthor"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_weight="33"
+                android:textSize="15dp"
+                android:text="@{project.author}" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{project.niceDate}"
+                android:textSize="15dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="5dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:textSize="20dp"
+                    android:text="@{project.title}"
+                    android:textColor="@color/black"/>
+                <TextView
+                    android:id="@+id/tvDesc"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_margin="5dp"
+                    android:maxLines="6"
+                    android:ellipsize="end"
+                    android:textSize="16dp"
+                    android:text="@{project.desc}" />
+            </LinearLayout>
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="10dp"
+                app:imageUrl="@{project.envelopePic}"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

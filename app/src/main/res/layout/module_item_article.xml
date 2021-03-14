@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="article"
+            type="com.birdaaron.wanandroid.model.bean.ArticleItem" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/ll_item_article_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tvTag"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:padding="3dp"
+                android:textSize="15dp"
+                android:textColor="#2E64FE"
+                android:background="@drawable/shape_border_textview_tag"
+                android:layout_marginRight="5dp"
+                android:text="@{article.chapterName}" />
+            <TextView
+                android:id="@+id/tvAuthor"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textSize="15dp"
+                android:text="@{article.author}" />
+            <TextView
+                android:id="@+id/tvShareUser"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+
+                android:textSize="15dp"
+                android:text="@{article.shareUser}" />
+        </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@{article.niceDate}"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="5dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="17dp"
+            android:textColor="@color/black"
+            android:text="@{article.title}" />
+
+    </LinearLayout>
+</layout>
