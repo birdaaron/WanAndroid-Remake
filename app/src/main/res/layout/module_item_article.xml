@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <data>
         <variable
@@ -31,13 +32,15 @@
                 android:textColor="#2E64FE"
                 android:background="@drawable/shape_border_textview_tag"
                 android:layout_marginRight="5dp"
+                tools:text="公众号"
                 android:text="@{article.chapterName}" />
             <TextView
                 android:id="@+id/tvAuthor"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:textSize="15dp"
-                android:text="@{article.author}" />
+                android:text="@{article.author}"
+                tools:text="鸿洋"/>
             <TextView
                 android:id="@+id/tvShareUser"
                 android:layout_height="wrap_content"
@@ -51,7 +54,7 @@
                 android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                tools:text="1小时前"
                 android:text="@{article.niceDate}"
                 android:textSize="15dp" />
         </LinearLayout>
@@ -67,6 +70,7 @@
             android:ellipsize="end"
             android:textSize="17dp"
             android:textColor="@color/black"
+            tools:text="一篇文章讲明白事件分发机制"
             android:text="@{article.title}" />
 
     </LinearLayout>

@@ -21,8 +21,8 @@ public class ProjectViewModel extends ViewModel
     public final static int PROJECT_DATA = 0x00,PROJECT_TAGS = 0x01;
     public MutableLiveData<List<ProjectItem>> mProjectList;
     public MutableLiveData<List<ProjectTag>> mTagList;
-    private ArticleModel am = new ArticleModel();
-    private ProjectViewModel.MyHandler myHandler = new ProjectViewModel.MyHandler(this);
+    private final ArticleModel am = new ArticleModel();
+    private final ProjectViewModel.MyHandler myHandler = new ProjectViewModel.MyHandler(this);
     public ProjectViewModel()
     {
         mProjectList = new MutableLiveData<>();

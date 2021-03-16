@@ -6,12 +6,13 @@ import android.webkit.WebViewClient;
 
 import com.birdaaron.wanandroid.R;
 import com.birdaaron.wanandroid.databinding.ModuleActivityWebBinding;
+import com.birdaaron.wanandroid.view.base.BaseActivity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-public class WebActivity extends AppCompatActivity
+public class WebActivity extends BaseActivity
 {
     private ModuleActivityWebBinding mBinding;
     @Override

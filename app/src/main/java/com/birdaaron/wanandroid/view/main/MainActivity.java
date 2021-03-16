@@ -22,6 +22,7 @@ import com.birdaaron.wanandroid.databinding.ActivityMainBinding;
 
 import com.birdaaron.wanandroid.R;
 import com.birdaaron.wanandroid.view.adapter.ArticleListAdapter;
+import com.birdaaron.wanandroid.view.base.BaseActivity;
 import com.birdaaron.wanandroid.view.main.MainFragment;
 import com.birdaaron.wanandroid.view.mine.MineFragment;
 import com.birdaaron.wanandroid.viewModel.MainViewModel;
@@ -29,7 +30,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity
 {
     private ActivityMainBinding mActivityMainBinding;
     private ArticleListAdapter mArticleListAdapter;
@@ -43,7 +44,6 @@ public class MainActivity extends AppCompatActivity
         mActivityMainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         mViewModel = new ViewModelProvider(this).get(MainViewModel.class);
         mFragmentManager = getSupportFragmentManager();
-        initStatusBar();
         initBottomNavigation();
     }
 
@@ -64,19 +64,14 @@ public class MainActivity extends AppCompatActivity
                 {
                     case R.id.tab_menu_main:
                         transaction.replace(R.id.fcv_main,MainFragment.class,null).commit();
-                        break;
+                        return true;
                     case R.id.tab_menu_mine:
                         transaction.replace(R.id.fcv_main, MineFragment.class,null).commit();
-                        break;
+                        return true;
                 }
-                return true;
+                return false;
             }
         });
-    }
-    private void initStatusBar()
-    {
-        getWindow().setStatusBarColor(ContextCompat.getColor(this,android.R.color.white));
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
 
 }

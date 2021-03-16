@@ -18,8 +18,7 @@
             android:id="@+id/fcv_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"></androidx.fragment.app.FragmentContainerView>
-
+            android:layout_weight="1"/>
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bnv_main"
             android:layout_width="match_parent"
@@ -27,8 +26,8 @@
             android:foregroundTint="#FFFFFF"
             android:background="@color/white"
             app:itemIconSize="30dp"
-            app:itemIconTint="#2196F3"
-            app:itemTextColor="#2196F3"
+            app:itemIconTint="@color/selector_navigation_view_color"
+            app:itemTextColor="@color/selector_navigation_view_color"
             app:menu="@menu/bottom_navigation_menu" />
     </LinearLayout>
 

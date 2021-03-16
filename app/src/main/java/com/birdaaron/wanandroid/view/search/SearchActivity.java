@@ -14,6 +14,7 @@ import com.birdaaron.wanandroid.R;
 import com.birdaaron.wanandroid.databinding.ModuleActivitySearchBinding;
 import com.birdaaron.wanandroid.model.bean.ArticleItem;
 import com.birdaaron.wanandroid.view.adapter.ArticleListAdapter;
+import com.birdaaron.wanandroid.view.base.BaseActivity;
 import com.birdaaron.wanandroid.viewModel.SearchViewModel;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
@@ -27,11 +28,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 import me.gujun.android.taggroup.TagGroup;
 
-public class SearchActivity extends AppCompatActivity
+public class SearchActivity extends BaseActivity
 {
     private ModuleActivitySearchBinding mBinding;
     private SearchViewModel mViewModel;
@@ -40,18 +42,12 @@ public class SearchActivity extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         mBinding = DataBindingUtil.setContentView(this,R.layout.module_activity_search);
         mViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
-        initStatusBar();
         initSearch();
         refreshHistory();
     }
-    private void initStatusBar()
-    {
-        getWindow().setStatusBarColor(ContextCompat.getColor(this,android.R.color.white));
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-    }
+
     private void initSearch()
     {
         initSearchResult(); //搜索结果模块
@@ -102,15 +98,7 @@ public class SearchActivity extends AppCompatActivity
                 if(!input.isEmpty())
                 {
                     //添加进历史记录
-                    SharedPreferences sp  = getSharedPreferences("searchHistory",MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sp.edit();
-                    String history = sp.getString("history","");
-                    if(!history.contains(input))
-                    {
-                        editor.putString("history",history+input+",");
-                        editor.apply();//commit?
-                        refreshHistory();
-                    }
+                    mViewModel.addHistory(input);
                     //显示搜索结果
                     mBinding.rlSearchResult.setVisibility(View.VISIBLE);
                     mBinding.rlSearchResult.autoRefresh();
@@ -183,26 +171,26 @@ public class SearchActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                SharedPreferences sp  = getSharedPreferences("searchHistory",MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("history","");
-                editor.apply();
-                refreshHistory();
+                mViewModel.clearHistory();
             }
         });
     }
 
     private void refreshHistory()
     {
-        SharedPreferences sp = getSharedPreferences("searchHistory",MODE_PRIVATE);
-        String history = sp.getString("history","");
-        if(history.equals(""))
-            mBinding.tgSearchHistory.setTags(new String[]{});//better way?
-        else
+        mViewModel.history.observe(this, new Observer<String>()
         {
-            String[] tags = history.split(",");
-            mBinding.tgSearchHistory.setTags(tags);
-        }
-
+            @Override
+            public void onChanged(String s)
+            {
+                if(s.equals(""))
+                    mBinding.tgSearchHistory.setTags(new String[]{});//better way?
+                else
+                {
+                    String[] tags = s.split(",");
+                    mBinding.tgSearchHistory.setTags(tags);
+                }
+            }
+        });
     }
 }

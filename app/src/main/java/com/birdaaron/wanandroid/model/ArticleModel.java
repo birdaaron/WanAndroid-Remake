@@ -7,7 +7,6 @@ import com.birdaaron.wanandroid.util.HTTPTool;
 
 public class ArticleModel
 {
-    public static final int ARTICLE_DATA = 0x00;
     private final HTTPTool httpTool = new HTTPTool();
     //private final mHandler handler
     public void getArticleList(int index,Handler handler)
