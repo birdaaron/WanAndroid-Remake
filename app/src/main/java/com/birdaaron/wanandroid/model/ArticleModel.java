@@ -8,7 +8,7 @@ import com.birdaaron.wanandroid.util.HTTPTool;
 public class ArticleModel
 {
     private final HTTPTool httpTool = new HTTPTool();
-    //private final mHandler handler
+
     public void getArticleList(int index,Handler handler)
     {
         httpTool.getArticleString("https://www.wanandroid.com/article/list/"+index+"/json",handler);

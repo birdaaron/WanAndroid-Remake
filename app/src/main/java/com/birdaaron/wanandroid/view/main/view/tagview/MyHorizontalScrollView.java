@@ -4,6 +4,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.HorizontalScrollView;
+import android.widget.ListView;
+
+import java.util.LinkedList;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class MyHorizontalScrollView extends HorizontalScrollView
 {
@@ -20,6 +24,7 @@ public class MyHorizontalScrollView extends HorizontalScrollView
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event)
     {
+
         int actionMasked = event.getActionMasked();
         int maxScrollX = getChildAt(0).getMeasuredWidth() - getMeasuredWidth();
         int curScrollX = getScrollX();

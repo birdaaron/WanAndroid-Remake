@@ -22,11 +22,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
 import okhttp3.FormBody;
@@ -50,7 +53,7 @@ public class HTTPTool
                 .cookieJar(new CookieJar()
                 {
                     private final SharePreferencesTool tool = new SharePreferencesTool(context);
-                    private final Map<String, List<Cookie>> cookiesMap = new HashMap<>();
+                    private final HashMap<String, List<Cookie>> cookiesMap = new HashMap<>();
                     private final Gson gson = new Gson();
                     @Override
                     public void saveFromResponse(@NotNull HttpUrl httpUrl, @NotNull List<Cookie> list)
@@ -80,8 +83,64 @@ public class HTTPTool
                     }
                 }).build();
     }
+    public void getCollectionList(String url,Handler handler)
+    {
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                String result = null;
+                Request request =  new Request.Builder()
+                        .url(url)
+                        .get()
+                        .build();
+                try(Response response = client.newCall(request).execute())
+                {
+                    result = response.body().string();
 
-    public void execCollect(String id)
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                finally {
+                    List<ArticleItem> resultList = null;
+                    JsonObject obj1 = gson.fromJson(result,JsonObject.class);
+                    JsonObject obj2 = gson.fromJson(obj1.get("data"),JsonObject.class);
+                    Type type = new TypeToken<List<ArticleItem>>(){}.getType();//1
+                    resultList = gson.fromJson(obj2.get("datas"),type);
+                    for(ArticleItem article : resultList)
+                        article.setCollect(true);
+                    Message msg = Message.obtain();
+                    msg.what = UserViewModel.COLLECTION_DATA;
+                    msg.obj = resultList;
+                    handler.sendMessage(msg);
+                }
+            }
+        }).start();
+    }
+    public void execUnCollect(int id)
+    {
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                String url = "https://www.wanandroid.com/lg/uncollect_originId/"+id+"/json";
+                RequestBody formBody = new FormBody.Builder().build();
+                Request request =  new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+                try
+                {
+                    client.newCall(request).execute();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+    public void execCollect(int id)
     {
         new Thread(new Runnable()
         {
@@ -100,7 +159,6 @@ public class HTTPTool
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
         }).start();
     }
@@ -154,6 +212,7 @@ public class HTTPTool
     }
     public void getSearchResult(String key,String url, Handler handler)
     {
+
         new Thread(new Runnable()
         {
             @Override
@@ -189,36 +248,36 @@ public class HTTPTool
     }
     public void getArticleString(String url, Handler handler)
     {
-        new Thread(new Runnable()
+
+        Request request =  new Request.Builder()
+                .url(url)
+                .get()
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback()
         {
             @Override
-            public void run()
+            public void onFailure(@NotNull Call call, @NotNull IOException e)
             {
-                String result = null;
-                Request request =  new Request.Builder()
-                        .url(url)
-                        .get()
-                        .build();
-                try(Response response = client.newCall(request).execute())
-                {
-                    result = response.body().string();
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                finally {
-                    List<ArticleItem> resultList = null;
-                    JsonObject obj1 = gson.fromJson(result,JsonObject.class);
-                    JsonObject obj2 = gson.fromJson(obj1.get("data"),JsonObject.class);
-                    Type type = new TypeToken<List<ArticleItem>>(){}.getType();//1
-                    resultList = gson.fromJson(obj2.get("datas"),type);
-                    Message msg = Message.obtain();
-                    msg.what = MainViewModel.ARTICLE_DATA;
-                    msg.obj = resultList;
-                    handler.sendMessage(msg);
-                }
             }
-        }).start();
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException
+            {
+                String result = response.body().string();
+
+                List<ArticleItem> resultList = null;
+                JsonObject obj1 = gson.fromJson(result,JsonObject.class);
+                JsonObject obj2 = gson.fromJson(obj1.get("data"),JsonObject.class);
+                Type type = new TypeToken<List<ArticleItem>>(){}.getType();//1
+                resultList = gson.fromJson(obj2.get("datas"),type);
+                Message msg = Message.obtain();
+                msg.what = MainViewModel.ARTICLE_DATA;
+                msg.obj = resultList;
+                handler.sendMessage(msg);
+            }
+        });
     }
     public void getProjectString(String url, Handler handler)
     {

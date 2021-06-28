@@ -1,6 +1,9 @@
 package com.birdaaron.wanandroid.view.login;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.MessageQueue;
 import android.view.View;
 import android.widget.Toast;
 
@@ -9,6 +12,14 @@ import com.birdaaron.wanandroid.databinding.ModuleActivityLoginBinding;
 import com.birdaaron.wanandroid.view.base.BaseActivity;
 import com.birdaaron.wanandroid.viewModel.UserViewModel;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.concurrent.locks.AbstractQueuedSynchronizer;
+import java.util.concurrent.locks.ReentrantLock;
+
+import androidx.activity.ComponentActivity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -20,10 +31,11 @@ public class LoginActivity extends BaseActivity
 {
     private ModuleActivityLoginBinding mBinding;
     private UserViewModel mViewModel;
-    private int status = UserViewModel.LOGIN_READY;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
+
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.module_activity_login);
         mViewModel = new ViewModelProvider(this).get(UserViewModel.class);

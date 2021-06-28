@@ -18,15 +18,15 @@ public class MainViewModel extends ViewModel
     private int page = 0;
     public final static int ARTICLE_DATA = 0x00;
     public MutableLiveData<List<ArticleItem>> mArticleList ;
+    private final ArticleModel am = new ArticleModel();
     public MainViewModel()
     {
         mArticleList = new MutableLiveData<>();
         mArticleList.setValue(new ArrayList<>());
-        this.loadArticle();
+        loadArticle();
     }
     public void loadArticle()
     {
-        ArticleModel am = new ArticleModel();
         am.getArticleList(page, new MyHandler(this));
     }
     public void clearPage()

@@ -1,9 +1,16 @@
 package com.birdaaron.wanandroid.model.bean;
 
+import android.os.Parcel;
+
 public class ProjectItem extends ArticleItem
 {
     private String desc;
     private String envelopePic;
+
+    public ProjectItem(Parcel source)
+    {
+        super(source);
+    }
 
     public String getDesc()
     {

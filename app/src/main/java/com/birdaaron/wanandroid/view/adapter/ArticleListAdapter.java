@@ -57,14 +57,14 @@ public class ArticleListAdapter extends BaseAdapter
         }
         else
             binding = DataBindingUtil.getBinding(convertView);
-        binding.setVariable(BR.article,mData.get(position));
+        binding.setArticle(mData.get(position));
         binding.llItemArticleContainer.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
                 Intent intent = new Intent(mContext, WebActivity.class);
-                intent.putExtra("url",mData.get(position).getLink());
+                intent.putExtra("article",mData.get(position));
                 mContext.startActivity(intent);
             }
         });

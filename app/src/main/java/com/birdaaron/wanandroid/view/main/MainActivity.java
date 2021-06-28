@@ -23,6 +23,7 @@ import com.birdaaron.wanandroid.databinding.ActivityMainBinding;
 import com.birdaaron.wanandroid.R;
 import com.birdaaron.wanandroid.view.adapter.ArticleListAdapter;
 import com.birdaaron.wanandroid.view.base.BaseActivity;
+import com.birdaaron.wanandroid.view.collect.CollectionFragment;
 import com.birdaaron.wanandroid.view.main.MainFragment;
 import com.birdaaron.wanandroid.view.mine.MineFragment;
 import com.birdaaron.wanandroid.viewModel.MainViewModel;
@@ -67,6 +68,9 @@ public class MainActivity extends BaseActivity
                         return true;
                     case R.id.tab_menu_mine:
                         transaction.replace(R.id.fcv_main, MineFragment.class,null).commit();
+                        return true;
+                    case R.id.tab_menu_collect:
+                        transaction.replace(R.id.fcv_main, CollectionFragment.class,null).commit();
                         return true;
                 }
                 return false;

@@ -28,6 +28,7 @@ public class MainFragment extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
+
         mBinding = DataBindingUtil.inflate(inflater, R.layout.module_fragment_main,container,false);
         mBinding.llMainSearchBar.setOnClickListener(new View.OnClickListener()
         {

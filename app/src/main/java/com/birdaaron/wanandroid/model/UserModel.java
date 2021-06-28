@@ -26,4 +26,16 @@ public class UserModel
     {
         httpTool.execLogin(username,password,handler);
     }
+    public void getCollectionList(int page,Handler handler)
+    {
+        httpTool.getCollectionList("https://www.wanandroid.com/lg/collect/list/"+page+"/json",handler);
+    }
+    public void execCollect(int id)
+    {
+        httpTool.execCollect(id);
+    }
+    public void execUnCollect(int id )
+    {
+        httpTool.execUnCollect(id);
+    }
 }

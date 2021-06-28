@@ -1,5 +1,6 @@
 package com.birdaaron.wanandroid.viewModel;
 
+import android.os.Looper;
 import android.os.Message;
 
 import com.birdaaron.wanandroid.model.ArticleModel;

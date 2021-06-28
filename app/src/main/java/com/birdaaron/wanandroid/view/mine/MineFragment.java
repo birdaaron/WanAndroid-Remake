@@ -13,6 +13,8 @@ import com.birdaaron.wanandroid.databinding.ModuleFragmentMineBinding;
 import com.birdaaron.wanandroid.view.login.LoginActivity;
 import com.birdaaron.wanandroid.viewModel.UserViewModel;
 
+import java.util.HashMap;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
@@ -32,29 +34,9 @@ public class MineFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.module_fragment_mine,container,false);
-        mViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-        mViewModel.isLogin.observe(getActivity(), new Observer<Boolean>()
-        {
-            @Override
-            public void onChanged(Boolean aBoolean)
-            {
-                int loginVisibility = aBoolean?View.GONE:View.VISIBLE;
-                int infoVisibility = aBoolean?View.VISIBLE:View.GONE;
-                mBinding.llMineInfo.setVisibility(infoVisibility);
-                mBinding.llMineLogin.setVisibility(loginVisibility);
-
-            }
-        });
+        mViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
         mBinding.setMViewModel(mViewModel);
-        mBinding.llMineLogin.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                Intent intent = new Intent(getContext(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
+        mBinding.setLifecycleOwner(this);
         mBinding.llMineInfo.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -71,6 +53,10 @@ public class MineFragment extends Fragment
         super.onStart();
         mViewModel.checkLogin();
     }
+    private void initClickE()
+    {
+
+    }
     private void showLogOffDialog()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -80,8 +66,7 @@ public class MineFragment extends Fragment
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                mViewModel.isLogin.setValue(false);
-                mViewModel.clearCookie();
+                mViewModel.execLogOff();
             }
         });
         builder.setNegativeButton("否", null);

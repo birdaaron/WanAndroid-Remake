@@ -16,6 +16,7 @@ import com.birdaaron.wanandroid.model.bean.ArticleItem;
 import com.birdaaron.wanandroid.model.bean.ProjectItem;
 import com.birdaaron.wanandroid.view.web.WebActivity;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.manager.SupportRequestManagerFragment;
 
 import java.util.List;
 
@@ -79,6 +80,7 @@ public class ProjectListAdapter extends BaseAdapter
     public static void loadImage(ImageView imageView,String url)
     {
         Glide.with(imageView.getContext()).load(url).into(imageView);
+
     }
     public void setData(List<ProjectItem> mData)
     {
