@@ -69,7 +69,7 @@ public class ProjectListAdapter extends BaseAdapter
             public void onClick(View v)
             {
                 Intent intent = new Intent(mContext, WebActivity.class);
-                intent.putExtra("url",mData.get(position).getLink());
+                intent.putExtra("article",mData.get(position));
                 mContext.startActivity(intent);
             }
         });

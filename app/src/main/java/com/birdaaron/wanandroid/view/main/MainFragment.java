@@ -51,6 +51,8 @@ public class MainFragment extends Fragment
                         return new MainArticleFragment();
                     case 1:
                         return new MainProjectFragment();
+                    case 2:
+                        return MainWXFragment.Companion.newInstance();
                 }
                 return new MainArticleFragment();
             }
@@ -58,7 +60,7 @@ public class MainFragment extends Fragment
             @Override
             public int getItemCount()
             {
-                return 2;
+                return 3;
             }
         });
         new TabLayoutMediator(mBinding.tlMain, mBinding.vp2Main, true, new TabLayoutMediator.TabConfigurationStrategy()
@@ -73,6 +75,9 @@ public class MainFragment extends Fragment
                         break;
                     case 1:
                         tab.setText("项目");
+                        break;
+                    case 2:
+                        tab.setText("公众号");
                         break;
                 }
             }
