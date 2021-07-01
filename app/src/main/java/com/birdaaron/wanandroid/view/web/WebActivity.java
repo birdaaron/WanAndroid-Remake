@@ -43,12 +43,9 @@ public class WebActivity extends BaseActivity
             @Override
             public void onClick(View v)
             {
-
-
                 isCollected = !isCollected;
                 setCollectIcon();
                 execCollect();
-
             }
         });
     }
